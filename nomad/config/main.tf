@@ -2,7 +2,7 @@ resource "null_resource" "nomad_configuration" {
   count = length(var.ssh_hosts)
 
   triggers = {
-    nomad_config = templatefile("/home/sturlar/Documents/IaC/Terraform/Modules/nomad/config/files/nomad.tpl",
+    nomad_config = templatefile("${path.module}/files/nomad.tpl",
     {
       is_server = var.nomad_options.is_server,
       datacenter = var.nomad_options.datacenter,
@@ -21,7 +21,7 @@ resource "null_resource" "nomad_configuration" {
   }
 
   provisioner "file" {
-    content = templatefile("/home/sturlar/Documents/IaC/Terraform/Modules/nomad/config/files/nomad.tpl",
+    content = templatefile("${path.module}/files/nomad.tpl",
     {
       is_server = var.nomad_options.is_server,
       datacenter = var.nomad_options.datacenter,
