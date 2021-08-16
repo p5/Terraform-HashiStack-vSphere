@@ -2,7 +2,8 @@ resource "null_resource" "consul_configuration" {
   count = length(var.ssh_hosts)
 
   triggers = {
-    consul_options = templatefile("/home/sturlar/Documents/IaC/Terraform/Modules/consul/config/files/consul.tpl",
+    #consul_options = templatefile("/home/sturlar/Documents/IaC/Terraform/Modules/consul/config/files/consul.tpl",
+    consul_options = templatefile("${path.module}/files/consul.tpl",
     {
       is_server = var.consul_options.is_server,
       datacenter = var.consul_options.datacenter,
@@ -23,7 +24,8 @@ resource "null_resource" "consul_configuration" {
   }
 
   provisioner "file" {
-    content = templatefile("/home/sturlar/Documents/IaC/Terraform/Modules/consul/config/files/consul.tpl",
+    #content = templatefile("/home/sturlar/Documents/IaC/Terraform/Modules/consul/config/files/consul.tpl",
+    consul_options = templatefile("${path.module}/files/consul.tpl",
     {
       is_server = var.consul_options.is_server,
       datacenter = var.consul_options.datacenter,
