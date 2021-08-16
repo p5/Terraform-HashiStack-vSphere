@@ -1,5 +1,5 @@
 locals {
-  vault_config_file = templatefile("/home/sturlar/Documents/IaC/Terraform/Modules/vault/config/files/vault.tpl",
+  vault_config_file = templatefile("${path.module}/files/vault.tpl",
   {
       ui_enabled = var.vault_options.ui
   })
@@ -19,7 +19,7 @@ resource "null_resource" "vault_configuration" {
   }
 
   provisioner "file" {
-    content = templatefile("/home/sturlar/Documents/IaC/Terraform/Modules/vault/config/files/vault.tpl",
+    content = templatefile("${path.module}/files/vault.tpl",
     {
       ui_enabled = var.vault_options.ui
     })
