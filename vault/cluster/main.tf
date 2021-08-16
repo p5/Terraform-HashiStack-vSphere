@@ -1,5 +1,5 @@
 module "virtual_machines" {
-  source = "../../vsphere/vm"
+  source = "git::github.com/p5/Terraform-HashiStack-vSphere.git//vsphere/vm"
   instances = var.instances
 
   datacenter = var.datacenter
@@ -23,7 +23,7 @@ module "virtual_machines" {
 }
 
 module "local_dns_a_records" {
-  source = "../../local_dns/a_records"
+  source = "git::github.com/p5/Terraform-HashiStack-vSphere.git//local_dns/a_records"
   count = var.dns_options.register_local_dns ? 1 : 0
 
   depends_on = [
@@ -36,7 +36,7 @@ module "local_dns_a_records" {
 }
 
 module "external_dns_a_records" {
-  source = "../../cloudflare_dns"
+  source = "git::github.com/p5/Terraform-HashiStack-vSphere.git//cloudflare_dns"
   count = var.dns_options.register_external_dns ? 1 : 0
 
   depends_on = [
